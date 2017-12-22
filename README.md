@@ -2,8 +2,10 @@ This is a fork of [Ghost](https://github.com/TryGhost/Ghost) that obfuscates pos
 
 This branch, **obfuscate-slugs** contains the changes on top of vanilla Ghost. The **master** branch will be periodically pulled from Ghost **master** and will not obfuscate slugs.
 
-_Ghost README follows below._
----
+<br />
+<em>Ghost README follows below.</em>
+<hr />
+<br />
 
 <a href="https://github.com/TryGhost/Ghost"><img src="https://cloud.githubusercontent.com/assets/120485/18661790/cf942eda-7f17-11e6-9eb6-9c65bfc2abd8.png" alt="Ghost" /></a>
 <a href="https://travis-ci.org/TryGhost/Ghost"><img align="right" src="https://travis-ci.org/TryGhost/Ghost.svg?branch=master" alt="Build status" /></a>
