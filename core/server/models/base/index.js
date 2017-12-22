@@ -19,6 +19,7 @@ var _ = require('lodash'),
     urlService = require('../../services/url'),
     validation = require('../../data/validation'),
     plugins = require('../plugins'),
+    uuid = require('uuid'),
 
     ghostBookshelf,
     proto;
@@ -714,6 +715,12 @@ ghostBookshelf.Model = ghostBookshelf.Model.extend({
 
                 slugTryCount += 1;
 
+                // Case: We are obfuscating post slugs by defaulting to a uuid instead of a meaningful string.
+                // (Chance of collision is nigh-zero, so we'll probably never get here.)
+                if (baseName == 'post') {
+                  return checkIfSlugExists(uuid.v4());
+                }
+
                 // If we shortened, go back to the full version and try again
                 if (slugTryCount === 2 && longSlug) {
                     slugToFind = longSlug;
@@ -740,7 +747,11 @@ ghostBookshelf.Model = ghostBookshelf.Model.extend({
         // the slug may never be longer than the allowed limit of 191 chars, but should also
         // take the counter into count. We reduce a too long slug to 185 so we're always on the
         // safe side, also in terms of checking for existing slugs already.
-        slug = security.string.safe(base, options);
+        if (baseName == 'post') { // Case: We are obfuscating post slugs by defaulting to a uuid instead of a meaningful string.
+          slug = uuid.v4();
+        } else {
+          slug = security.string.safe(base, options);
+        }
 
         if (slug.length > 185) {
             // CASE: don't cut the slug on import
